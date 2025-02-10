@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-
+import PrivacyPolicy from "./PrivacyPolicy";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   const [prompt, setPrompt] = useState(""); 
   const [message, setMessage] = useState("");
@@ -27,7 +28,8 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <>
+      <div className="container">
       <h2>🎤 أرسل برومبت إلى Gemini</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -38,6 +40,15 @@ function App() {
       </form>
       {message && <div className="alert alert-info mt-3">{message}</div>}
     </div>
+
+
+    <Router>
+      <Routes>
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+      </Routes>
+    </Router>
+    </>
+    
   );
 }
 
