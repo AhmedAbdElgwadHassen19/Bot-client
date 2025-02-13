@@ -1,61 +1,88 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
-import PrivacyPolicy from "./PrivacyPolicy";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-function App() {
-  const [prompt, setPrompt] = useState("");
-  const [message, setMessage] = useState("");
+import "bootstrap/dist/css/bootstrap.min.css";
 
-  const handlePromptChange = (e) => {
-    setPrompt(e.target.value);
+function App() {
+  const [prompt, setPrompt] = useState(""); 
+  const [model, setModel] = useState(""); 
+  const [message, setMessage] = useState("");
+  const [botStatus, setBotStatus] = useState("⛔ البوت متوقف");
+  const [botActive, setBotActive] = useState(false);
+
+  // ✅ إرسال الموديل عند تغييره فقط
+  const handleModelChange = async (e) => {
+    const newModel = e.target.value;
+    setModel(newModel);
+    console.log(`📌 موديل جديد مختار: ${newModel}`);
+
+    try {
+      const response = await axios.post("bots-api-production.up.railway.app/api/set-model", { model: newModel });
+      console.log(`✅ تم إرسال الموديل للباك إند بنجاح: ${response.data.message}`);
+    } catch (error) {
+      console.error("❌ فشل في إرسال الموديل للباك إند:", error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("⏳ جاري إرسال البرومبت...");
 
+    if (!prompt.trim()) {
+      setMessage("⚠️ الرجاء إدخال البرومبت أولًا.");
+      return;
+    }
+
+    console.log("📩 إرسال البرومبت:", prompt);
+
+    setMessage("⏳ جاري إرسال البرومبت...");
+    
     try {
-      await axios.post(
-        "https://bots-api-production.up.railway.app/api/send-prompt", // ✅ تغيير المسار الصحيح
-        { prompt },
+      await axios.post("bots-api-production.up.railway.app/api/send-prompt",  
+        { prompt },  
         { headers: { "Content-Type": "application/json" } }
       );
 
-      setMessage("✅ تم تحديث معلومات Gemini بنجاح!");
+      setMessage("✅ تم إرسال البرومبت بنجاح!");
+      setBotActive(true);
+      setBotStatus("✅ البوت مفعل");
     } catch (error) {
-      console.error("❌ Error:", error.response?.data || error);
-      setMessage("❌ حدث خطأ أثناء تحديث Gemini");
+      setMessage("❌ حدث خطأ أثناء إرسال البرومبت.");
     }
   };
 
   return (
-    <>
-      <div className="container">
-        <h2>🎤 أرسل برومبت إلى Gemini</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="prompt">📝 أدخل البرومبت:</label>
-            <textarea
-              id="prompt"
-              className="form-control"
-              value={prompt}
-              onChange={handlePromptChange}
-              rows="3"
-            ></textarea>
-          </div>
-          <button type="submit" className="btn btn-primary mt-3">
-            🚀 إرسال البرومبت
-          </button>
-        </form>
-        {message && <div className="alert alert-info mt-3">{message}</div>}
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">🤖 تحكم في البوت</h2>
+
+      <div className="form-group">
+        <label className="fw-bold">🔍 اختر الموديل:</label>
+        <select className="form-control" value={model} onChange={handleModelChange}>
+          <option value="">اختر الموديل</option>
+          <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+          <option value="gemini-1.5-ultra">Gemini 1.5 Ultra</option>
+        </select>
       </div>
 
-      <Router>
-        <Routes>
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        </Routes>
-      </Router>
-    </>
+      <form onSubmit={handleSubmit} className="mt-3">
+        <div className="form-group">
+          <label className="fw-bold">📝 أدخل البرومبت:</label>
+          <textarea 
+            className="form-control border-primary" 
+            value={prompt} 
+            onChange={(e) => setPrompt(e.target.value)} 
+            rows="3"
+            placeholder="اكتب البرومبت هنا..."
+            style={{ resize: "none", fontSize: "16px", padding: "10px" }}>
+          </textarea>
+        </div>
+
+        <button type="submit" className="btn btn-primary w-100 mt-3">
+          🚀 إرسال البرومبت
+        </button>
+      </form>
+
+      {message && <div className="alert alert-info mt-3">{message}</div>}
+    </div>
   );
 }
 
