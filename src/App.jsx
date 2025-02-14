@@ -17,7 +17,7 @@ function App() {
     console.log(`📌 موديل جديد مختار: ${newModel}`);
 
     try {
-      const response = await axios.post("bots-api-production.up.railway.app/api/set-model", { model: newModel });
+      const response = await axios.post("https://bots-api-production.up.railway.app/api/set-model", { model: newModel });
       console.log(`✅ تم إرسال الموديل للباك إند بنجاح: ${response.data.message}`);
     } catch (error) {
       console.error("❌ فشل في إرسال الموديل للباك إند:", error);
@@ -37,7 +37,7 @@ function App() {
     setMessage("⏳ جاري إرسال البرومبت...");
     
     try {
-      await axios.post("bots-api-production.up.railway.app/api/send-prompt",  
+      await axios.post("https://bots-api-production.up.railway.app/api/send-prompt",  
         { prompt },  
         { headers: { "Content-Type": "application/json" } }
       );
