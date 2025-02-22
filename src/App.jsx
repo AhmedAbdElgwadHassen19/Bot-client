@@ -98,8 +98,8 @@ function App() {
       <select className="form-control" value={model} onChange={handleModelChange} required>
         <option value="">اختر الموديل</option>
         <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-        <option value="gemini-1.5-ultra">Gemini 1.5 Ultra</option>
         <option value="gemini-1.0-pro">Gemini 1.0 Pro</option>
+        <option value="gemini-1.5-flash">gemini 1.5 flash</option>
       </select>
     </div>
     
