@@ -19,19 +19,19 @@ function Tokens() {
 
       try {
         await axios.post("https://bots-api-production.up.railway.app/api/tokens", { inputTokens: input, outputTokens: output });
-        setMessage("✅ تم حفظ القيم وإرسالها تلقائيًا!");
+        setMessage("✅ Values ​​saved and sent automatically!");
       } catch (error) {
         console.error("❌ خطأ أثناء الإرسال:", error);
-        setMessage("❌ حدث خطأ أثناء إرسال البيانات.");
+        setMessage("❌ An error occurred while sending data.");
       }
     }
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container ">
 
       <div className="form-group mt-3">
-        <label className="fw-bold">🔡 عدد الـ Input Tokens:</label>
+        <label className="fw-bold mb-2">🔡  Input Tokens:</label>
         <input 
           type="number" 
           className="form-control border-warning" 
@@ -42,7 +42,7 @@ function Tokens() {
       </div>
 
       <div className="form-group mt-3">
-        <label className="fw-bold">🔠 عدد الـ Output Tokens:</label>
+        <label className="fw-bold mb-2">🔠 Output Tokens:</label>
         <input 
           type="number" 
           className="form-control border-success" 

@@ -11,11 +11,11 @@ function PromptPage() {
     e.preventDefault();
 
     if (!prompt.trim() || isNaN(parseInt(inputTokens)) || isNaN(parseInt(outputTokens))) {
-      setMessage("❌ الرجاء إدخال برومبت صحيح وإرسال التوكنات أولًا.");
+      setMessage("❌ Please enter a valid prompt and send the tokens first.");
       return;
     }
 
-    setMessage("⏳ جاري إرسال البيانات...");
+    setMessage("⏳ Sending data...");
 
     try {
       await axios.post("https://bots-api-production.up.railway.app/api/send-prompt", { 
@@ -24,10 +24,10 @@ function PromptPage() {
         outputTokens: parseInt(outputTokens) 
       });
 
-      setMessage("✅ تم إرسال البرومبت بنجاح!");
+      setMessage("✅ The prompt has been sent successfully");
     } catch (error) {
       console.error("❌ خطأ أثناء الإرسال:", error);
-      setMessage("❌ حدث خطأ أثناء إرسال البيانات.");
+      setMessage("❌ An error occurred while sending data.");
     }
   };
 
@@ -35,18 +35,18 @@ function PromptPage() {
     <div className="container">
 
       <div className="form-group mt-3">
-        <label className="fw-bold">📝 أدخل البرومبت:</label>
+        <label className="fw-bold">📝 Enter the prompt</label>
         <textarea 
           className="form-control border-primary" 
           value={prompt} 
           onChange={(e) => setPrompt(e.target.value)} 
           rows="3" 
-          placeholder="اكتب البرومبت هنا..." 
+          placeholder="Write the prompt here..." 
         ></textarea>
       </div>
 
       <button type="submit" className="btn btn-primary w-100 mt-3" onClick={handleSubmit}>
-        🚀 إرسال جميع البيانات
+        🚀 Submit all data
       </button>
 
       {message && <div className="alert alert-info mt-3">{message}</div>}
