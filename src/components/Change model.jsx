@@ -23,7 +23,6 @@ return(
             <option value="">Select the model </option>
             <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
             <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-            <option value="gemini-1.5-flash-8b">Gemini 1.5 Flash-8b</option>
             <option value="gemini-2.0-flash-lite-001">Gemini 2.0 Flash-lite </option>
             <option value="gemini-2.0-flash-001">Gemini 2.0 Flash </option>
         </select>
