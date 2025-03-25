@@ -8,7 +8,7 @@
     setBotActive(true);
     setBotStatus("✅ The bot is activated");
     try {
-      await axios.post("https://bots-api-production.up.railway.app/set-bot-status", { botActive: true });
+      await axios.post("http://localhost:5000/api/set-bot-status", { botActive: true });
     } catch (error) {
       console.error("❌ فشل في تشغيل البوت:", error);
     }
@@ -19,7 +19,7 @@
     setBotActive(false);
     setBotStatus("⛔ The bot is stopped ");
     try {
-      await axios.post("https://bots-api-production.up.railway.app/set-bot-status", { botActive: false });
+      await axios.post("http://localhost:5000/api/set-bot-status", { botActive: false });
     } catch (error) {
       console.error("❌ فشل في إيقاف البوت:", error);
     }

@@ -18,7 +18,7 @@ function PromptPage() {
     setMessage("⏳ Sending data...");
 
     try {
-      await axios.post("https://bots-api-production.up.railway.app/api/send-prompt", { 
+      await axios.post("http://localhost:5000/api/send-prompt", { 
         prompt, 
         inputTokens: parseInt(inputTokens), 
         outputTokens: parseInt(outputTokens) 

@@ -9,7 +9,7 @@ const handleModelChange = async (e) => {
     setModel(newModel);
     console.log(`📌 موديل جديد مختار: ${newModel}`);
     try {
-        await axios.post("https://bots-api-production.up.railway.app/api/set-model", { model: newModel });
+        await axios.post("http://localhost:5000/api/set-model", { model: newModel });
     }  catch (error) {
         console.error("❌ فشل في إرسال الموديل للباك إند:", error);
     }
@@ -23,6 +23,7 @@ return(
             <option value="">Select the model </option>
             <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
             <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+            <option value="gemini-1.5-flash-8b">Gemini 1.5 Flash-8b</option>
             <option value="gemini-2.0-flash-lite-001">Gemini 2.0 Flash-lite </option>
             <option value="gemini-2.0-flash-001">Gemini 2.0 Flash </option>
         </select>

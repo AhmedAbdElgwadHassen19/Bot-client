@@ -18,7 +18,7 @@ function Tokens() {
       setOutputTokens(output);
 
       try {
-        await axios.post("https://bots-api-production.up.railway.app/api/tokens", { inputTokens: input, outputTokens: output });
+        await axios.post("http://localhost:5000/api/tokens", { inputTokens: input, outputTokens: output });
         setMessage("✅ Values ​​saved and sent automatically!");
       } catch (error) {
         console.error("❌ خطأ أثناء الإرسال:", error);

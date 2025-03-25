@@ -13,7 +13,7 @@ export default function ApiKeyInput() {
 
         try {
             // ✅ إرسال المفتاح إلى الباك إند مع `headers` صحيحة
-            const response = await axios.post("https://bots-api-production.up.railway.app/api/check-api-key", 
+            const response = await axios.post("http://localhost:5000/api/check-api-key", 
                 { apiKey }, 
                 { headers: { "Content-Type": "application/json" } }
             );
